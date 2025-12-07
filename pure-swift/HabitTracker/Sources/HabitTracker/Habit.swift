@@ -41,9 +41,7 @@ struct Habit {
     }
         // calculating # of attempts past 7 days
         var completionsThisWeek:Int {
-            
             var daysThisWeek = 0
-
             for loggedDay in logs{
                 if let dayDiff = calendar.dateComponents([.day], from: loggedDay, to: today).day {
                     if dayDiff < 7 && dayDiff >= 0 {
@@ -57,7 +55,7 @@ struct Habit {
             return daysThisWeek
         }
         
-        //CLAMPING PROGRESS BETWEEN 0.0 and 1.0
+        //CLAMPING PROGRESS BETWEEN 0.0 and 1.0 so that we'd be able to calc %
         var progress: Double {
             if completionsThisWeek <= weeklyGoal {
                 return Double(completionsThisWeek)/Double(weeklyGoal)
@@ -66,6 +64,61 @@ struct Habit {
                 return 1.0
             }
         }
+    
+    //Calc streaks
+    var streak: Int {
+        //Streak logic:
+        // Logged dates could be multiple on the same day at different times. We first convert dates in the logs array to start of day. Then turn it into a set for uniqueness.
+        // We then pick the streak’s starting day: today if logged, otherwise yesterday.
+        // Walk backward one day at a time while each day exists in the logs.
+        // Count each consecutive logged day and stop when a day is missing.
+        // Return the number of consecutive days, starting from the most recent log.
+        
+        var streakCount = 0
+        //keep only unique values using SET. Normalize to start of day for comparison
+        let formattedLogs = Set(logs.map { calendar.startOfDay(for:$0) })
+        
+        var dayZeroOfStreak: Date
+        let startofToday = calendar.startOfDay(for:today)
+        //CALCULATE DAY ZERO
+        if formattedLogs.contains(startofToday) {
+            //make today day zero if today's logged.
+            dayZeroOfStreak = startofToday
+        }
+        else {
+            //make yesterday day zero if today's not logged
+            if let startOfYesterday = calendar.date(byAdding:.day, value: -1, to: startofToday) {
+                dayZeroOfStreak = calendar.startOfDay(for: startOfYesterday)
+            }
+            else {
+                return 0
+            }
+            
+        }
+        //START COUNTING BAKC FROM DAY ZERO
+        
+        for _ in formattedLogs {
+            if formattedLogs.contains(dayZeroOfStreak) {
+                streakCount += 1
+                if let yesterday = calendar.date(byAdding:.day, value: -1, to: dayZeroOfStreak){
+                    
+                    dayZeroOfStreak = calendar.startOfDay(for: yesterday)
+                }
+                else {
+                    break
+                }
+            }
+            else {
+                break
+            }
+        }
+
+        
+
+        
+        return streakCount
+
+    }
            
     }
     
