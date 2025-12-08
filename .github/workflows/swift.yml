@@ -18,5 +18,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build
       run: swift build -v
+      working-directory: pure-swift/HabitTracker
     - name: Run tests
       run: swift test -v || true
+      working-directory: pure-swift/HabitTracker
