@@ -6,6 +6,7 @@ struct Habit {
     let calendar = Calendar.current
     var today: Date { Date() }
     
+    //check if user has logged today.
     var hasLoggedToday: Bool {
         for log in logs {
             if calendar.isDate(log, inSameDayAs: today) {
@@ -16,6 +17,9 @@ struct Habit {
     }
     
     
+    var lastCompletionDate:Date? {
+        return logs.max()
+    }
    
     
     init(habitName: String, weeklyGoal: Int, logs: [Date] = []) {
