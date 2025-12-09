@@ -6,6 +6,16 @@ struct Habit {
     let calendar = Calendar.current
     var today: Date { Date() }
     
+    var hasLoggedToday: Bool {
+        for log in logs {
+            if calendar.isDate(log, inSameDayAs: today) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
    
     
     init(habitName: String, weeklyGoal: Int, logs: [Date] = []) {
