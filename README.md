@@ -1,7 +1,6 @@
 # Swift Projects 
 
 Personal collection of Swift / SwiftUI experiments and small apps.  
-Work-in-progress: these projects are meant to demonstrate knowledge of Swift fundamentals, and end-to-end app ideas.
 
 ---
 
