@@ -1,5 +1,5 @@
 import Foundation
-struct Habit {
+struct Habit:Codable {
     var habitName:String
     var weeklyGoal: Int
     var logs:[Date] = []
