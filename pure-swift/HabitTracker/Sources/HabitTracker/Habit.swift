@@ -128,8 +128,6 @@ struct Habit:Codable {
         }
 
         
-
-        
         return streakCount
 
     }
