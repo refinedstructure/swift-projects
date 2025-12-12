@@ -3,7 +3,7 @@ struct Habit:Codable {
     var habitName:String
     var weeklyGoal: Int
     var logs:[Date] = []
-    let calendar = Calendar.current
+    var calendar:Calendar{ Calendar.current }
     var today: Date { Date() }
     
     //check if user has logged today.
