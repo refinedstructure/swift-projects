@@ -117,6 +117,9 @@ struct HabitTracker {
                         break
                     }
                 }
+                else {
+                    print("Please enter a number")
+                }
             }
             return selectedHabit!
         }
