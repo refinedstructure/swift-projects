@@ -15,15 +15,17 @@ A lightweight habit-tracking CLI app written in pure Swift. WIP.
 - weekly progress calculation  
 - streak calculation  
 
-**In progress:** local persistence (JSON) and test coverage improvements.
+
 
 ---
 
-## ▶ Run / Setup
+## Download & Run (No Build Required)
 
-Requirements: Xcode 15+ or Swift 5.9 recommended.
+1. Download the latest release from:
+   https://github.com/refinedstructure/swift-projects/releases
 
-```bash
-cd pure-swift/HabitTracker
-swift build
-swift run
+2. Unzip the file
+
+3. Run:
+   ```bash
+   ./habittracker
