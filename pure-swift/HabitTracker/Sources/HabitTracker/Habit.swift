@@ -53,7 +53,10 @@ struct Habit:Codable {
             }
         }
     }
-        // calculating # of attempts past 7 days
+    
+    
+    
+    // calculating # of attempts past 7 days
         var completionsThisWeek:Int {
             var daysThisWeek = 0
             for loggedDay in logs{
