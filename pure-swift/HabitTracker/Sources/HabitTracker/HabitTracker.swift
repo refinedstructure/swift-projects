@@ -4,11 +4,11 @@ import Foundation
 struct HabitTracker {
     static func main() {
         
+        //load habits if any. Array will be empty if no habits present
         var existingHabits: [Habit]
         existingHabits = loadHabits()
         var newUser:Bool = false
-        
-        
+                
         //Check if there are no habits created by user
         let validateNewUser:() -> Void = {
             if existingHabits.isEmpty {
@@ -18,8 +18,7 @@ struct HabitTracker {
                 newUser = false
             }
         }
-        
-        //Show bespoke load screen based on whether it's a new user or not
+        //LOADING screen to show when user first startss or types "home"
         let triggerLoadScreen:() -> Void =  {
             if newUser
             {
@@ -28,7 +27,9 @@ struct HabitTracker {
                     HABIT TRACKER — CLI
             ====================================
             
-            Welcome! You can use this app to track your habits
+            Welcome to your new CLI-based habit tracker!
+            
+            Note: All habits are saved locally at ~/Documents/data/habits.json
             
             Available commands:
               1. add        - Create a new habit        
@@ -47,7 +48,9 @@ struct HabitTracker {
                     HABIT TRACKER — CLI
             ====================================
             
-            Welcome! You can use this app to track your habits
+            Welcome back to your new CLI-based habit tracker!
+            
+            Note: All habits are saved locally at ~/Documents/data/habits.json
             
             Available commands:
               1. add        - Create a new habit       
