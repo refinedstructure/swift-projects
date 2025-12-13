@@ -20,30 +20,34 @@ import Foundation
         j.dateDecodingStrategy = .iso8601
         return j
     }()
-    
+
+let FILENAME:String = "habits.json"
+let FOLDERNAME:String = "data"
+
+func generatePATH(docPath: URL, file:String,folder:String) -> URL {
+    let dataDir = docPath.appendingPathComponent(folder)
+    let fileURL = dataDir.appendingPathComponent(file)
+    return fileURL
+}
+
 
 func saveHabits(_ habits:[Habit]){
     let fm = FileManager.default
     //saving to documents folder
     if let documentsPath = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
-        let dataDir = documentsPath.appendingPathComponent("data")
-        let fileURL = dataDir.appendingPathComponent("habits.json")
+        let dataDir = documentsPath.appendingPathComponent(FOLDERNAME)
+        let fileURL = generatePATH(docPath: documentsPath, file: FILENAME, folder: FOLDERNAME)
         
         do {
             
             try fm.createDirectory(at: dataDir, withIntermediateDirectories: true, attributes: nil)
             let data = try habitEncoder.encode(habits)
             try data.write(to: fileURL, options: .atomic)
-            print("Saved \(habits.count) habits to \(fileURL.path) ")
         }
         catch {
             print("Failed to save habits: \(error)")
         }
         
-    }
-    else {
-        
-        print("That didn't work. Check access to documents folder")
     }
 }
 
@@ -52,32 +56,19 @@ func loadHabits() -> [Habit] {
     var habits: [Habit] = []
     let fm = FileManager.default
     if let documentsPath = fm.urls(for: .documentDirectory, in: .userDomainMask).first {
-        let dataDir = documentsPath.appendingPathComponent("data")
-        let fileURL = dataDir.appendingPathComponent("habits.json")
         
-       
-        
+        let fileURL = generatePATH(docPath: documentsPath, file: FILENAME, folder: FOLDERNAME)
         if fm.fileExists(atPath: fileURL.path) {
             // load habits
             do {
                 let habitsRawData = try Data(contentsOf: fileURL)
                 habits = try habitDecoder.decode([Habit].self, from: habitsRawData)
-                print("\(habits.count) habits found. Loading now" )
-                
             }
             catch
             {
                 print("The following error occured when reading the file: \(error)")
             }
         }
-        else {
-            print("No habits found" )
-        }
-        
-  
-    }
-    else {
-        print("That didn't work. Check access to documents folder")
     }
     
     return habits
