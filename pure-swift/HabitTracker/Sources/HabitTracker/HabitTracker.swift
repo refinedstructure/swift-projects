@@ -53,10 +53,10 @@ struct HabitTracker {
             Note: All habits are saved locally at ~/Documents/data/habits.json
             
             Available commands:
-              1. add        - Create a new habit       
-              2. list       - Show all habits           (pending)
+              1. add        - Create a new habit        (works now)
+              2. list       - Show all habits           (works now)
               3. log        - Log today's completion    (pending)
-              4. stats      - View streaks & progress   (pending)
+              4. stats      - View streaks & progress   (works now)
               5. quit       - Exit the app              (works now)
             
             Type a command and press Enter.
@@ -99,9 +99,7 @@ struct HabitTracker {
         //DO NOT CALL FUNCTION ON EMPTY ARRAYS - do empty array check first validateNEWUSER()
         func habitSelector() -> Int {
             var counter:Int = 0
-            
             var selectedHabitPosition: Int = 0
-            print("Please select a habit from the list:\n")
             for habit in existingHabits{
                 print("\(counter + 1): \(habit.habitName)\n")
                 counter += 1
@@ -115,8 +113,7 @@ struct HabitTracker {
                     else {
                         
                         selectedHabitPosition = userInput - 1
-
-                        print("Your habit selected is \(existingHabits[userInput - 1].habitName)")
+//                        print("Your habit selected is \(existingHabits[userInput - 1].habitName)")
                         break
                     }
                 }
@@ -218,7 +215,13 @@ struct HabitTracker {
             case "log":
                 validateNewUser()
                 //habit selection needs to be built first
-                triggerLoadScreen()
+                if !newUser{
+//                    let chosenHabitIndex = habitSelector()
+
+                }
+                else {
+                    triggerLoadScreen()
+                }
                 
             case "stats":
                 validateNewUser()
@@ -228,10 +231,19 @@ struct HabitTracker {
                                     ====================================
                                             YOUR STATS (ALL HABITS)
                                     ====================================
+                        
+                                    Please select a habit from the list to view its stats:
+                        
+                        
                         """)
-                    for habit in existingHabits{
-                        print("\nHabit name: \(habit.habitName)\n Completions this week: \(habit.completionsThisWeek) \n Streak: \(habit.streak) \n Weekly goal: \(habit.weeklyGoal) \n")
-                    }
+                    let chosenHabitIndex = habitSelector()
+                    
+                    print("""
+                          Habit name: \(existingHabits[chosenHabitIndex].habitName)
+                          Completions this week: \(existingHabits[chosenHabitIndex].completionsThisWeek)
+                          Streak: \(existingHabits[chosenHabitIndex].streak)
+                         Weekly goal: \(existingHabits[chosenHabitIndex].weeklyGoal)
+                         """)
                     triggerContinueScreen()
                 }
                 else{
