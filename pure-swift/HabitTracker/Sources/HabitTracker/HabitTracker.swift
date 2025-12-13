@@ -96,10 +96,11 @@ struct HabitTracker {
             
         }
         
-        
-        func habitSelector() -> Habit {
+        //DO NOT CALL FUNCTION ON EMPTY ARRAYS - do empty array check first validateNEWUSER()
+        func habitSelector() -> Int {
             var counter:Int = 0
-            var selectedHabit: Habit? = nil
+            
+            var selectedHabitPosition: Int = 0
             print("Please select a habit from the list:\n")
             for habit in existingHabits{
                 print("\(counter + 1): \(habit.habitName)\n")
@@ -112,8 +113,10 @@ struct HabitTracker {
                        print( "Please enter the corresponding number for the habit to select it")
                     }
                     else {
-                        selectedHabit = existingHabits[userInput - 1]
-                        print("Your habit selected is \(selectedHabit!.habitName)\n")
+                        
+                        selectedHabitPosition = userInput - 1
+
+                        print("Your habit selected is \(existingHabits[userInput - 1].habitName)")
                         break
                     }
                 }
@@ -121,7 +124,7 @@ struct HabitTracker {
                     print("Please enter a number")
                 }
             }
-            return selectedHabit!
+            return selectedHabitPosition
         }
         
         
