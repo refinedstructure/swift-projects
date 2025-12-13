@@ -70,7 +70,6 @@ struct HabitTracker {
         
     
         
-        
         let triggerContinueScreen:() -> Void  = {
             
             if newUser {
@@ -98,15 +97,44 @@ struct HabitTracker {
         }
         
         
+        func habitSelector() -> Habit {
+            var counter:Int = 0
+            var selectedHabit: Habit? = nil
+            print("Please select a habit from the list:\n")
+            for habit in existingHabits{
+                print("\(counter + 1): \(habit.habitName)\n")
+                counter += 1
+            }
+            while let input = readLine(strippingNewline: true) {
+                
+                if let userInput = Int(input) {
+                    if userInput > counter || userInput <= 0 {
+                       print( "Please enter the corresponding number for the habit to select it")
+                    }
+                    else {
+                        selectedHabit = existingHabits[userInput - 1]
+                        print("Your habit selected is \(selectedHabit!.habitName)\n")
+                        break
+                    }
+                }
+            }
+            return selectedHabit!
+        }
+        
+        
         
         
         //INITIAL LOAD
         validateNewUser()
         triggerLoadScreen()
         
+        
+        
         // GET INPUT
         while let input = readLine(strippingNewline: true) {
             switch input {
+            case "config":
+                print(habitSelector())
             case "home":
                 validateNewUser()
                 triggerLoadScreen()
@@ -197,7 +225,6 @@ struct HabitTracker {
                         """)
                     for habit in existingHabits{
                         print("\nHabit name: \(habit.habitName)\n Completions this week: \(habit.completionsThisWeek) \n Streak: \(habit.streak) \n Weekly goal: \(habit.weeklyGoal) \n")
-
                     }
                     triggerContinueScreen()
                 }
