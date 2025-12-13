@@ -66,9 +66,6 @@ struct Habit:Codable {
                     }
                 }
             }
-            if daysThisWeek == 0 {
-                print("You haven't logged this habit in the past 7 days")
-            }
             return daysThisWeek
         }
         
