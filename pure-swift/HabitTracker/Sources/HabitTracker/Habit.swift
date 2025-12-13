@@ -16,7 +16,6 @@ struct Habit:Codable {
         return false
     }
     
-    
     var lastCompletionDate:Date? {
         return logs.max()
     }
@@ -24,12 +23,13 @@ struct Habit:Codable {
     
     init(habitName: String, weeklyGoal: Int, logs: [Date] = []) {
         self.habitName = habitName
-        if weeklyGoal < 1 {
-            print("Weekly goal cannot be negative or zero. Setting it to 1. You can change it later if you want.")
-            self.weeklyGoal = 1
+        if weeklyGoal >= 1
+        {
+            self.weeklyGoal = weeklyGoal
         }
         else {
-            self.weeklyGoal = weeklyGoal
+            self.weeklyGoal = 1
+            print("Weekly goal was set to zero or negative. Setting to 1.")
         }
         self.logs = logs
     }

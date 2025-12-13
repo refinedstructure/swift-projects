@@ -116,9 +116,17 @@ struct HabitTracker {
                 print("\n\nEnter name for this habit \n")
                 while let nameInput = readLine(strippingNewline: true) {
                     if !nameInput.isEmpty {
-                        newHabitName = nameInput
-                        print("\nYour habit will be called \(newHabitName)")
-                        break
+                        
+                        if existingHabits.contains(where: {$0.habitName.lowercased() == nameInput.lowercased()}) {
+                            print("A habit by the name \(nameInput) already exists. Try a different name!")
+                        }
+                        else {
+                            
+                            newHabitName = nameInput
+                            
+                            print("\nYour habit will be called \(newHabitName)")
+                            break
+                        }
                     }
                     else {
                         print("Make sure you enter a name \n")
@@ -126,10 +134,15 @@ struct HabitTracker {
                 }
                 print("\nEnter weekly goal for this habit\n")
                 while let goalInput = readLine(strippingNewline: true) {
-                    if let rawWeeklyGoal = Int(goalInput){
-                        newWeeklyGoal = rawWeeklyGoal
-                        print("\nGoal for your habit set at : \(newWeeklyGoal)")
-                        break
+                    if let rawWeeklyGoal = Int(goalInput) {
+                        if rawWeeklyGoal < 1 {
+                            print("Your goal can't be zero or negative. Try again! \n")
+                        }
+                        else {
+                            newWeeklyGoal = rawWeeklyGoal
+                            print("\nGoal for your habit set at : \(newWeeklyGoal)")
+                            break
+                        }
                     }
                     else {
                         print("\nMake sure you enter a goal that is a number \n")
