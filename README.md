@@ -7,7 +7,7 @@ Collection of Swift Projects and apps I've built.
 ## 🧩 Projects
 
 ### 1. HabitTracker (pure Swift — CLI)  
-**Path:** [`pure-swift/HabitTracker`](pure-swift/HabitTracker)
+**Path:** `cli-apps/HabitTracker`
 
 A lightweight habit-tracking CLI app written in pure Swift.
 
