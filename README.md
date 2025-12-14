@@ -13,7 +13,7 @@ A lightweight habit-tracking CLI app written in pure Swift.
 
 #### Demo (CLI)
 
-![HabitTracker CLI demo](pure-swift/HabitTracker/clihabitdemo.gif)
+![HabitTracker CLI demo](cli-apps/HabitTracker/clihabitdemo.gif)
 
 **Current functionality:**
 - Create and manage habits
