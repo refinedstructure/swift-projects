@@ -1,6 +1,6 @@
 # Swift Projects
 
-Personal collection of Swift / SwiftUI experiments and small apps.
+Collection of Swift Projects and apps I've built. 
 
 ---
 
