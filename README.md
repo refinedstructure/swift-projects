@@ -9,23 +9,19 @@ Collection of Swift Projects and apps I've built.
 ### 1. HabitTracker (pure Swift — CLI)  
 **Path:** [`pure-swift/HabitTracker`](pure-swift/HabitTracker)
 
-A lightweight habit-tracking CLI app written in pure Swift. WIP.  
+A lightweight habit-tracking CLI app written in pure Swift.
+
+#### Demo (CLI)
+
+![HabitTracker CLI demo](pure-swift/HabitTracker/clihabitdemo.gif)
+
 **Current functionality:**
-- logging completions  
-- weekly progress calculation  
-- streak calculation  
+- Create and manage habits
+- Log daily completions
+- Weekly progress calculation
+- Streak calculation
+- Persistent local storage (JSON)
 
-
-
----
-
-## Download & Run (No Build Required)
-
-1. Download the latest release from:
-   https://github.com/refinedstructure/swift-projects/releases
-
-2. Unzip the file
-
-3. Run:
-   ```bash
-   ./habittracker
+**Download & Run (No Build Required):**
+```bash
+./habittracker
