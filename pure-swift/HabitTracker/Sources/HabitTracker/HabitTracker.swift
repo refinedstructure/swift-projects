@@ -57,7 +57,7 @@ struct HabitTracker {
             Available commands:
               1. add        - Create a new habit        (works now)
               2. list       - Show all habits           (works now)
-              3. log        - Log today's completion    (pending)
+              3. log        - Log today's completion    (works now)
               4. stats      - View streaks & progress   (works now)
               5. quit       - Exit the app              (works now)
             
@@ -253,13 +253,25 @@ struct HabitTracker {
                         """)
                     let chosenHabitIndex = habitSelector()
                     
-                    print("""
+                    if let compDate = existingHabits[chosenHabitIndex].lastCompletionDate {
+                        print("""
+                          Habit name: \(existingHabits[chosenHabitIndex].habitName)
+                          Completions this week: \(existingHabits[chosenHabitIndex].completionsThisWeek)
+                          Streak: \(existingHabits[chosenHabitIndex].streak)
+                         Weekly goal: \(existingHabits[chosenHabitIndex].weeklyGoal)
+                         Last Completion Date: \(compDate)
+                         """)
+                        triggerContinueScreen()
+                    }
+                    else {
+                        print("""
                           Habit name: \(existingHabits[chosenHabitIndex].habitName)
                           Completions this week: \(existingHabits[chosenHabitIndex].completionsThisWeek)
                           Streak: \(existingHabits[chosenHabitIndex].streak)
                          Weekly goal: \(existingHabits[chosenHabitIndex].weeklyGoal)
                          """)
-                    triggerContinueScreen()
+                        triggerContinueScreen()
+                    }
                 }
                 else{
                     triggerLoadScreen()
