@@ -6,6 +6,8 @@ let APP_VERSION = "0.1.1"
 struct HabitTracker {
     static func main() {
         
+        //PENDING: DELETE HABIT, EDIT WEEKLY GOAL, RENAME HABIT
+        
         //load habits if any. Array will be empty if no habits present
         var existingHabits: [Habit]
         existingHabits = loadHabits()
@@ -259,7 +261,7 @@ struct HabitTracker {
                           Completions this week: \(existingHabits[chosenHabitIndex].completionsThisWeek)
                           Streak: \(existingHabits[chosenHabitIndex].streak)
                          Weekly goal: \(existingHabits[chosenHabitIndex].weeklyGoal)
-                         Last Completion Date: \(compDate)
+                         Last Logged On: \(compDate)
                          """)
                         triggerContinueScreen()
                     }
