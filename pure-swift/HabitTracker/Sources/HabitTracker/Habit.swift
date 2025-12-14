@@ -37,19 +37,19 @@ struct Habit:Codable {
     mutating func logCompletion(on date: Date) {
         if logs.contains(where: { calendar.isDate($0, inSameDayAs: date) }) {
             if calendar.isDate(date, inSameDayAs: today) {
-                print("You already logged this today! Take a break!")
+                print("You already logged this today! Take a break! \n")
             }
             else {
-                print("You've already logged your habit for this day before!")
+                print("You've already logged your habit for this day before!\n")
             }
         }
         else {
             logs.append(date)
             if calendar.isDate(date, inSameDayAs: today) {
-                print("Congrats on completing your habit for today! Keep going!")
+                print("Congrats on completing your habit for today! Keep going!\n")
             }
             else {
-                print("Keep the streak going! I've added this date to your log")
+                print("Keep the streak going! I've added this date to your log\n")
             }
         }
     }

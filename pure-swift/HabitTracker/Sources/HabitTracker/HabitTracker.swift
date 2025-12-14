@@ -1,5 +1,7 @@
 import Foundation
 
+let APP_VERSION = "0.1.1"
+
 @main
 struct HabitTracker {
     static func main() {
@@ -24,7 +26,7 @@ struct HabitTracker {
             {
             print("""
             ====================================
-                    HABIT TRACKER — CLI
+             CLI HABIT TRACKER (v\(APP_VERSION))
             ====================================
             
             Welcome to your new CLI-based habit tracker!
@@ -45,7 +47,7 @@ struct HabitTracker {
             else {
                 print("""
             ====================================
-                    HABIT TRACKER — CLI
+            CLI HABIT TRACKER (v\(APP_VERSION))
             ====================================
             
             Welcome back to your new CLI-based habit tracker!
@@ -216,8 +218,21 @@ struct HabitTracker {
                 validateNewUser()
                 //habit selection needs to be built first
                 if !newUser{
-//                    let chosenHabitIndex = habitSelector()
+                    print("""
+                        
+                                    ====================================
+                                               LOG YOUR HABIT
+                                    ====================================
+                        
+                                    Please select a habit from the list to log it:
+                        
+                        
+                        """)
+                    let chosenHabitIndex = habitSelector()
 
+                    existingHabits[chosenHabitIndex].logCompletion(on: Date())
+                    saveHabits(existingHabits)
+                    triggerContinueScreen()
                 }
                 else {
                     triggerLoadScreen()
@@ -229,7 +244,7 @@ struct HabitTracker {
                     print("""
                         
                                     ====================================
-                                            YOUR STATS (ALL HABITS)
+                                           KNOW YOUR HABIT'S STATS 
                                     ====================================
                         
                                     Please select a habit from the list to view its stats:
