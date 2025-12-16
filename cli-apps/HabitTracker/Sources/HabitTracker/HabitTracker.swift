@@ -6,25 +6,13 @@ let APP_VERSION = "0.1.1"
 struct HabitTracker {
     static func main() {
         
-        //PENDING: DELETE HABIT, EDIT WEEKLY GOAL, RENAME HABIT
-        
-        //load habits if any. Array will be empty if no habits present
-        var existingHabits: [Habit]
-        existingHabits = loadHabits()
-        var newUser:Bool = false
-                
-        //Check if there are no habits created by user
-        let validateNewUser:() -> Void = {
-            if existingHabits.isEmpty {
-                newUser = true
-            }
-            else {
-                newUser = false
-            }
-        }
+        //load viewmodel
+        var viewModel = HabitTrackerViewModel()
         //LOADING screen to show when user first startss or types "home"
-        let triggerLoadScreen:() -> Void =  {
-            if newUser
+        func triggerLoadScreen() {
+
+            if viewModel.isNewUser()
+                
             {
             print("""
             ====================================
@@ -75,10 +63,11 @@ struct HabitTracker {
         
     
         
-        let triggerContinueScreen:() -> Void  = {
+        func triggerContinueScreen() {
             
-            if newUser {
+            if viewModel.isNewUser() {
                 print("""
+            
             
             Available commands: add, quit. Tip: Type "home" to go back to main menu 
             Type a command and press Enter.
@@ -91,6 +80,8 @@ struct HabitTracker {
             else{
                 print("""
             
+            
+            
             Available commands: add, list, log, stats, quit. Tip: Type "home" to go back to main menu
             Type a command and press Enter.
             ------------------------------------
@@ -102,32 +93,38 @@ struct HabitTracker {
         }
         
         //DO NOT CALL FUNCTION ON EMPTY ARRAYS - do empty array check first validateNEWUSER()
-        func habitSelector() -> Int {
-            var counter:Int = 0
-            var selectedHabitPosition: Int = 0
-            for habit in existingHabits{
-                print("\(counter + 1): \(habit.habitName)\n")
-                counter += 1
-            }
-            while let input = readLine(strippingNewline: true) {
-                
-                if let userInput = Int(input) {
-                    if userInput > counter || userInput <= 0 {
-                       print( "Please enter the corresponding number for the habit to select it")
+        func habitSelector() -> Int? {
+            if !viewModel.isNewUser() {
+                var counter:Int = 0
+                var selectedHabitPosition: Int = 0
+                for habit in viewModel.habits{
+                    print("\(counter + 1): \(habit.habitName)\n")
+                    counter += 1
+                }
+                while let input = readLine(strippingNewline: true) {
+                    
+                    if let userInput = Int(input) {
+                        if userInput > counter || userInput <= 0 {
+                            print( "Please enter the corresponding number for the habit to select it")
+                        }
+                        else {
+                            
+                            selectedHabitPosition = userInput - 1
+                            break
+                        }
                     }
                     else {
-                        
-                        selectedHabitPosition = userInput - 1
-//                        print("Your habit selected is \(existingHabits[userInput - 1].habitName)")
-                        break
+                        print("Please enter a number")
                     }
                 }
-                else {
-                    print("Please enter a number")
-                }
+                return selectedHabitPosition
             }
-            return selectedHabitPosition
+            else {
+                return nil
+            }
         }
+        
+        
         
         func confirmDialog(confirmationMsg: String) -> Bool {
             var confirmation:Bool = false
@@ -154,7 +151,7 @@ struct HabitTracker {
         
         
         //INITIAL LOAD
-        validateNewUser()
+        
         triggerLoadScreen()
         
         
@@ -164,31 +161,27 @@ struct HabitTracker {
             switch input {
                 
             case "delete":
-                if !existingHabits.isEmpty {
-                    let selectedConfigHabit = habitSelector()
-                    let confirmMsg  = "Are you sure you want to delete \(existingHabits[selectedConfigHabit].habitName)?"
-                    let confirmation = confirmDialog(confirmationMsg: confirmMsg)
-                    if confirmation {
-                        //delete
-                        
-                        print("The habit \(existingHabits[selectedConfigHabit].habitName) has been deleted. \n")
-                        existingHabits.remove(at: selectedConfigHabit)
-                        saveHabits(existingHabits)
-                        validateNewUser()
-                        triggerContinueScreen()
-                        
+                    if let selectedConfigHabit = habitSelector() {
+                        let confirmMsg  = "Are you sure you want to delete \(viewModel.habits[selectedConfigHabit].habitName)?"
+                        let confirmation = confirmDialog(confirmationMsg: confirmMsg)
+                        if confirmation {
+                            
+                            print("The habit \(viewModel.habits[selectedConfigHabit].habitName) has been deleted. \n")
+                            viewModel.deleteHabit(at: selectedConfigHabit)
+                            triggerContinueScreen()
+                            
+                        }
+                        else {
+                            print("\n No change made.\n")
+                            triggerContinueScreen()
+                        }
                     }
                     else {
-                        print("No change made.")
-                        triggerContinueScreen()
+                        print("There are no habits to delete. You can create one using the 'add' command\n\n\n")
+                        triggerLoadScreen()
                     }
-                }
-                else {
-                    print("There are no habits to delete. You can create one using the 'add' command\n\n\n")
-                    triggerLoadScreen()
-                }
             case "home":
-                validateNewUser()
+
                 triggerLoadScreen()
             case "add":
                 var newHabitName:String = ""
@@ -196,12 +189,12 @@ struct HabitTracker {
                 print("\n\nEnter name for this habit \n")
                 while let nameInput = readLine(strippingNewline: true) {
                     if !nameInput.isEmpty {
+                            if !viewModel.canAddHabit(nameInput)
                         
-                        if existingHabits.contains(where: {$0.habitName.lowercased() == nameInput.lowercased()}) {
+                        {
                             print("A habit by the name \(nameInput) already exists. Try a different name!")
                         }
                         else {
-                            
                             newHabitName = nameInput
                             
                             print("\nYour habit will be called \(newHabitName)")
@@ -214,8 +207,9 @@ struct HabitTracker {
                 }
                 print("\nEnter weekly goal for this habit\n")
                 while let goalInput = readLine(strippingNewline: true) {
+                    
                     if let rawWeeklyGoal = Int(goalInput) {
-                        if rawWeeklyGoal < 1 {
+                        if !viewModel.isWeeklyGoalValid(goal: rawWeeklyGoal){
                             print("Your goal can't be zero or negative. Try again! \n")
                         }
                         else {
@@ -228,7 +222,7 @@ struct HabitTracker {
                         print("\nMake sure you enter a goal that is a number \n")
                     }
                 }
-                if newUser{
+                if viewModel.isNewUser(){
                     print("Congrats! You've created your first habit. Habit Name: \(newHabitName) Weekly Goal \(newWeeklyGoal) \n ")
                 }
                 else {
@@ -237,15 +231,15 @@ struct HabitTracker {
                 }
 
                 let newHabit = Habit(habitName: newHabitName, weeklyGoal: newWeeklyGoal)
-                existingHabits.append(newHabit)
-                saveHabits(existingHabits)
+
+                viewModel.addHabit(newHabit)
+                
                 print("\n\n\n")
                 //showing load screen for now but worth creating a "next command screen" soon
-                validateNewUser()
+
                 triggerContinueScreen()
                 
             case "list":
-                validateNewUser()
                 print("""
                     
                                 ====================================
@@ -253,18 +247,16 @@ struct HabitTracker {
                                 ====================================
                     """)
 
-                if !newUser {
-                    print("\n\nYou are tracking \(existingHabits.count) habits. Here they are: \n")
-                    for habit in existingHabits{
+                if !viewModel.isNewUser() {
+                    print("\n\nYou are tracking \(viewModel.habits.count) habits. Here they are: \n")
+                    for habit in viewModel.habits{
                         print("Habit: \(habit.habitName) Streak: \(habit.streak) days\n")
                     }
                 }
                 triggerContinueScreen()
                 
             case "log":
-                validateNewUser()
-                //habit selection needs to be built first
-                if !newUser{
+                if let chosenHabitIndex = habitSelector(){
                     print("""
                         
                                     ====================================
@@ -275,60 +267,60 @@ struct HabitTracker {
                         
                         
                         """)
-                    let chosenHabitIndex = habitSelector()
-
-                    existingHabits[chosenHabitIndex].logCompletion(on: Date())
-                    saveHabits(existingHabits)
+                    
+                    viewModel.logHabit(at: chosenHabitIndex)
+                    print("\nYour habit was successfully logged!\n\n")
                     triggerContinueScreen()
                 }
                 else {
-                    triggerLoadScreen()
+                    print("No habits to display. Type \"add\" to add a new habit. \n \n")
+                    triggerContinueScreen()
                 }
                 
             case "stats":
-                validateNewUser()
-                if !newUser{
-                    print("""
+                
+              
+                        if  let chosenHabitIndex = habitSelector() {
+                            print("""
+                                
+                                            ====================================
+                                                   KNOW YOUR HABIT'S STATS 
+                                            ====================================
+                                
+                                            Please select a habit from the list to view its stats:
+                                
+                                
+                                """)
                         
-                                    ====================================
-                                           KNOW YOUR HABIT'S STATS 
-                                    ====================================
-                        
-                                    Please select a habit from the list to view its stats:
-                        
-                        
-                        """)
-                    let chosenHabitIndex = habitSelector()
-                    
-                    if let compDate = existingHabits[chosenHabitIndex].lastCompletionDate {
-                        print("""
-                          Habit name: \(existingHabits[chosenHabitIndex].habitName)
-                          Completions this week: \(existingHabits[chosenHabitIndex].completionsThisWeek)
-                          Streak: \(existingHabits[chosenHabitIndex].streak)
-                         Weekly goal: \(existingHabits[chosenHabitIndex].weeklyGoal)
+                        if let compDate = viewModel.habits[chosenHabitIndex].lastCompletionDate {
+                            print("""
+                          Habit name: \(viewModel.habits[chosenHabitIndex].habitName)
+                          Completions this week: \(viewModel.habits[chosenHabitIndex].completionsThisWeek)
+                          Streak: \(viewModel.habits[chosenHabitIndex].streak)
+                         Weekly goal: \(viewModel.habits[chosenHabitIndex].weeklyGoal)
                          Last Logged On: \(compDate)
                          """)
-                        triggerContinueScreen()
-                    }
-                    else {
-                        print("""
-                          Habit name: \(existingHabits[chosenHabitIndex].habitName)
-                          Completions this week: \(existingHabits[chosenHabitIndex].completionsThisWeek)
-                          Streak: \(existingHabits[chosenHabitIndex].streak)
-                         Weekly goal: \(existingHabits[chosenHabitIndex].weeklyGoal)
+                            triggerContinueScreen()
+                        }
+                        else {
+                            print("""
+                          Habit name: \(viewModel.habits[chosenHabitIndex].habitName)
+                          Completions this week: \(viewModel.habits[chosenHabitIndex].completionsThisWeek)
+                          Streak: \(viewModel.habits[chosenHabitIndex].streak)
+                         Weekly goal: \(viewModel.habits[chosenHabitIndex].weeklyGoal)
                          """)
-                        triggerContinueScreen()
+                            triggerContinueScreen()
+                        }
                     }
-                }
                 else{
-                    triggerLoadScreen()
+                    print("No habits to display. Type \"add\" to add a new habit. \n \n")
+                    triggerContinueScreen()
                 }
             case "quit":
                 print("Goodbye!")
                 exit(0)
             default:
                 print("Not a valid command. Try again. \n \n")
-                validateNewUser()
                 triggerContinueScreen()
             }
             
