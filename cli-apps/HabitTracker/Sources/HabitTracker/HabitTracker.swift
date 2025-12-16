@@ -1,7 +1,6 @@
 import Foundation
 
-let APP_VERSION = "0.1.1"
-
+let APP_VERSION = "1.1.1"
 @main
 struct HabitTracker {
     static func main() {
