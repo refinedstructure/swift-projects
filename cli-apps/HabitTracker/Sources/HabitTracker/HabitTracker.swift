@@ -57,11 +57,12 @@ struct HabitTracker {
             Note: All habits are saved locally at ~/Documents/data/habits.json
             
             Available commands:
-              1. add        - Create a new habit        (works now)
-              2. list       - Show all habits           (works now)
-              3. log        - Log today's completion    (works now)
-              4. stats      - View streaks & progress   (works now)
-              5. quit       - Exit the app              (works now)
+              1. add        - Create a new habit        
+              2. list       - Show all habits           
+              3. log        - Log today's completion    
+              4. stats      - View streaks & progress   
+              5. delete     - Delete habits   
+              5. quit       - Exit the app              
             
             Type a command and press Enter.
             ------------------------------------
@@ -128,6 +129,27 @@ struct HabitTracker {
             return selectedHabitPosition
         }
         
+        func confirmDialog(confirmationMsg: String) -> Bool {
+            var confirmation:Bool = false
+            print(confirmationMsg + " type (y/n)")
+            while let userInput = readLine(strippingNewline: true) {
+                
+                if userInput.lowercased() == "y" {
+                    confirmation = true
+                    break
+                }
+                else if userInput.lowercased() == "n"{
+                    confirmation = false
+                    break
+                }
+                else {
+                    print("Please enter either y or n")
+                }
+                
+            }
+            return confirmation
+        }
+        
         
         
         
@@ -140,8 +162,31 @@ struct HabitTracker {
         // GET INPUT
         while let input = readLine(strippingNewline: true) {
             switch input {
-            case "config":
-                print(habitSelector())
+                
+            case "delete":
+                if !existingHabits.isEmpty {
+                    let selectedConfigHabit = habitSelector()
+                    let confirmMsg  = "Are you sure you want to delete \(existingHabits[selectedConfigHabit].habitName)?"
+                    let confirmation = confirmDialog(confirmationMsg: confirmMsg)
+                    if confirmation {
+                        //delete
+                        
+                        print("The habit \(existingHabits[selectedConfigHabit].habitName) has been deleted. \n")
+                        existingHabits.remove(at: selectedConfigHabit)
+                        saveHabits(existingHabits)
+                        validateNewUser()
+                        triggerContinueScreen()
+                        
+                    }
+                    else {
+                        print("No change made.")
+                        triggerContinueScreen()
+                    }
+                }
+                else {
+                    print("There are no habits to delete. You can create one using the 'add' command\n\n\n")
+                    triggerLoadScreen()
+                }
             case "home":
                 validateNewUser()
                 triggerLoadScreen()
