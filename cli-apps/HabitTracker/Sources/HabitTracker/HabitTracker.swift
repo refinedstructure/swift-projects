@@ -256,18 +256,17 @@ struct HabitTracker {
                 triggerContinueScreen()
                 
             case "log":
-                if let chosenHabitIndex = habitSelector(){
-                    print("""
-                        
-                                    ====================================
-                                               LOG YOUR HABIT
-                                    ====================================
-                        
-                                    Please select a habit from the list to log it:
-                        
-                        
-                        """)
+                print("""
                     
+                                ====================================
+                                           LOG YOUR HABIT
+                                ====================================
+                    
+                                Please select a habit from the list to log it:
+                    
+                    
+                    """)
+                if let chosenHabitIndex = habitSelector(){
                     viewModel.logHabit(at: chosenHabitIndex)
                     print("\nYour habit was successfully logged!\n\n")
                     triggerContinueScreen()
@@ -278,19 +277,19 @@ struct HabitTracker {
                 }
                 
             case "stats":
-                
-              
+                print("""
+                    
+                                ====================================
+                                       KNOW YOUR HABIT'S STATS 
+                                ====================================
+                    
+                                Please select a habit from the list to view its stats:
+                    
+                    
+                    """)
+
                         if  let chosenHabitIndex = habitSelector() {
-                            print("""
-                                
-                                            ====================================
-                                                   KNOW YOUR HABIT'S STATS 
-                                            ====================================
-                                
-                                            Please select a habit from the list to view its stats:
-                                
-                                
-                                """)
+                      
                         
                         if let compDate = viewModel.habits[chosenHabitIndex].lastCompletionDate {
                             print("""
