@@ -23,7 +23,7 @@ A lightweight habit-tracking CLI app written in pure Swift.
 - Persistent local storage (JSON)
 
 ### Product Discovery
-[Habit Tracker — User Research & JTBD Analysis](pure-swift/HabitTracker/Research/discovery.md)
+[Habit Tracker — User Research & JTBD Analysis](pure-swift/HabitTracker/product-research/discovery.md)
 
 **Download & Run (No Build Required):**
 ```bash
