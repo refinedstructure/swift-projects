@@ -1,6 +1,6 @@
 # Habit Tracker – User Research (Raw Discovery)
 
-Source: Perplexity deep research  
+Source: Perplexity deep research and chatgpt research mode 
 Query link: https://www.perplexity.ai/search/fc68e56c-b44a-49f2-a9e2-cd7b7a854e4f#0  
 Method: Cross-analysis of Reddit discussions, app reviews, essays, and mental health articles.  
 Scope: Habit tracking apps .
@@ -23,7 +23,7 @@ PENDING
 
 ---
 
-## Top user frustrations and underlying JTBDs
+## Top user frustrations and underlying JTBDs (Perplexity)
 
 | User frustration (paraphrased) | Underlying JTBD (analyzed) | Evidence summary | Sources |
 |-------------------------------|----------------------------|------------------|---------|
@@ -95,3 +95,48 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC10924263/
 
 [20] Reddit – Avoiding social/gamified habit tracking  
 https://www.reddit.com/r/getdisciplined/comments/1mkbjh9/
+
+
+## Top user frustrations and underlying JTBDs (ChatGPT)
+
+| Issue | JTBD (User’s underlying “job to be done”) | Sources | Links |
+|------|-------------------------------------------|---------|-------|
+| **1. Intrusive monetization (ads/paywalls)** | Users want a seamless habit-tracking experience **without constant ads or forced paywalls**, so they can focus on building habits rather than being annoyed or “nickel-and-dimed.” | Google Play & App Store reviews (Rabit, Habit, Habitify) complaining about aggressive ads, upsells, and low premium value | https://play.google.com/store/apps/details?id=com.rabittracker<br>https://apps.apple.com/app/habit-tracker/id1438388363<br>https://apps.apple.com/app/habitify/id1051448573 |
+| **2. Excessive or irrelevant notifications** | Users need **smart, non-intrusive reminders** that trigger at the right time and stop once a habit is completed. | App Store & Google Play reviews reporting notifications after completion or despite being disabled | https://apps.apple.com/app/habitify/id1051448573<br>https://play.google.com/store/apps/details?id=org.isoron.uhabits |
+| **3. Guilt/pressure from strict streaks** | Users want to build habits **without feeling like failures for occasional misses**, preferring progress-based encouragement over all-or-nothing streaks. | Reddit discussions, blogs, and long-form reviews describing anxiety, shame, and demotivation caused by streak loss | https://www.reddit.com/r/productivity/comments/obsession_with_streaks/<br>https://nesslabs.com/streaks-habit-tracking |
+| **4. Only tracking, no true accountability** | Users want **help doing the habit**, not just logging it. They expect guidance, structure, or enforcement beyond passive tracking. | Blog critiques and user essays highlighting that most habit apps only record behavior and are easy to ignore | https://www.focusbear.io/blog/habit-tracking-apps-dont-work<br>https://lemon8-app.com/@productivityfails |
+| **5. Sync/multi-device problems** | Users want **frictionless syncing across phone, desktop, and wearables** without manual setup or repeated logins. | Habitify App Store reviews describing sync failures, confusing account linking, and lost data | https://apps.apple.com/app/habitify/id1051448573 |
+| **6. Inflexible scheduling/goals** | Users want **real-life–compatible schedules** (weekly goals, grace days, retroactive logging) instead of rigid daily checklists. | App reviews and UX research noting lack of support for non-daily habits and partial completion | https://apps.apple.com/app/habitify/id1051448573<br>https://dl.acm.org/doi/10.1145/3290605.3300830 |
+| **7. Forced premium limits** | Users want to track **all meaningful habits** without artificial caps that force upgrades for basic use. | Google Play & App Store reviews complaining about habit limits in free tiers | https://play.google.com/store/apps/details?id=org.isoron.uhabits<br>https://apps.apple.com/app/habitify/id1051448573 |
+| **8. UI/UX glitches and bugs** | Users expect a **stable, intuitive interface**; bugs and poor design break trust and consistency. | App Store reviews mentioning crashes, broken buttons, incorrect refresh states, and visual issues | https://apps.apple.com/app/habit-tracker/id1438388363 |
+| **9. Privacy/data security worries** | Users want **minimal data sharing and transparent permissions**, especially for simple habit data. | Habitify reviews expressing discomfort with required Apple/Google/email linking for sync | https://apps.apple.com/app/habitify/id1051448573 |
+| **10. Overwhelm from too many or fragmented tasks** | Users want **clarity and prioritization**, not a long undifferentiated list of habits that causes decision fatigue. | User reviews and productivity blogs discussing overwhelm from tracking too many habits at once | https://apps.apple.com/app/habitify/id1051448573<br>https://nesslabs.com/too-many-habits |
+
+---
+
+## Source Index (Expanded)
+
+**App Stores**
+- Apple App Store – Habitify  
+  https://apps.apple.com/app/habitify/id1051448573
+- Apple App Store – Habit Tracker  
+  https://apps.apple.com/app/habit-tracker/id1438388363
+- Google Play – Rabit Habit Tracker  
+  https://play.google.com/store/apps/details?id=com.rabittracker
+- Google Play – Loop Habit Tracker  
+  https://play.google.com/store/apps/details?id=org.isoron.uhabits
+
+**Communities & Blogs**
+- Reddit (r/productivity, r/selfimprovement) – streak anxiety & motivation loss  
+  https://www.reddit.com/r/productivity/
+- Ness Labs – habit psychology & streak critique  
+  https://nesslabs.com/streaks-habit-tracking  
+  https://nesslabs.com/too-many-habits
+- Focus Bear blog – critique of habit tracking apps  
+  https://www.focusbear.io/blog/habit-tracking-apps-dont-work
+- Lemon8 productivity discussions  
+  https://lemon8-app.com/
+
+**Academic / UX Research**
+- ACM CHI research on habit-tracking rigidity and behavior change  
+  https://dl.acm.org/doi/10.1145/3290605.3300830
