@@ -22,6 +22,9 @@ A lightweight habit-tracking CLI app written in pure Swift.
 - Streak calculation
 - Persistent local storage (JSON)
 
+### Product Discovery
+[Habit Tracker — User Research & JTBD Analysis](pure-swift/HabitTracker/Research/discovery.md)
+
 **Download & Run (No Build Required):**
 ```bash
 ./habittracker
