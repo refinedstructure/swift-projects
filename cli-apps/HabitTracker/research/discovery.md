@@ -19,7 +19,7 @@ In the end, create a table of top 10 most pressing issues, their unique JTBDs, a
 
 ## High-level synthesis (raw)
 
-PENDING
+Poor customization for non-daily habits, tracking feeling like extra work, pressure of keeping up with streaks (streak anxiety) are the top problems users face
 
 ---
 
