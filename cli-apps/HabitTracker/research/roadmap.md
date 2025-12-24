@@ -18,3 +18,9 @@
 - Logging flows through habit status, not reminders
 - Status summaries exposed via CLI
 - Explicit logging action only (no forced prompts)
+
+## Scope & constraints
+
+- Monthly habits intentionally excluded in this phase
+- Notifications and reminders deferred due to CLI constraints
+- Focus is on validating cadence and status logic 
