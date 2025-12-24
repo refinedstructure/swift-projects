@@ -11,3 +11,55 @@ Third, **tracking itself often feels like additional work** rather than a natura
 Together, these issues suggest that current habit-tracking systems optimize for **consistency metrics rather than sustainable behavior**, increasing cognitive and emotional load instead of reducing it.
 
 
+## Solution space
+
+### prob_1 — Replacing streaks with a neutral habit status
+
+Instead of streaks, each habit has a **simple status model with three states**:
+
+- **On track** – The habit has been logged within the expected cadence.
+- **Not logged (neutral)** – No data has been logged yet for the current period.
+- **Needs attention** – The habit has gone unlogged beyond an agreed grace window.
+
+The key principle is that **absence of a log is not treated as failure by default**.
+
+When a habit period begins (daily / weekly / monthly), the habit starts in a **Not logged** state.
+
+Below the status, the user sees a single CTA based on their selected cadence:
+
+- **“Habit completed”** (daily / weekly / monthly, depending on cadence)
+
+If the user taps this action:
+
+- The habit immediately moves to **On track**
+- The action disappears for that period
+- The user sees lightweight confirmation such as:
+  - *“You completed this habit today”* (daily)
+  - *“You completed this habit this week”* (weekly)
+
+If the habit remains **Not logged** beyond a predefined grace period (for example, 3 days for daily habits, 3 weeks for weekly habits), the habit transitions to **Needs attention**.
+
+The user is informed of this grace period during habit creation, and advanced users may optionally customize it.
+
+If the user logs the habit at any point while in **Needs attention**, the habit immediately returns to **On track**.
+
+
+### prob_2 — Supporting non-daily habits through cadence, not workarounds
+
+During habit creation, the user explicitly selects a **cadence** (daily, weekly, monthly, etc.).
+
+All logging, status transitions, messaging, and grace periods are derived from this cadence.  
+
+
+
+### prob_3 — Logging through status
+
+The user is shown the **current status of each habit** in notifications or live activity views, for example:
+
+- *“3 habits on track · 1 needs attention”*
+
+Tapping the notification leads directly to the habit logging UI, where the user can mark the habit as completed with a single action.
+
+Notifications **do not demand immediate logging**.  
+They communicate status and make logging easily accessible without marking it as a failure or obligation.
+
