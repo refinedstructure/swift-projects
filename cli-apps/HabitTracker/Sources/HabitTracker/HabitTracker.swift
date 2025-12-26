@@ -174,7 +174,7 @@ struct HabitTracker {
                         }
                     }
                     else {
-                        print("\n\nThere are no habits to delete. You can create one using the 'add' command\n\n\n")
+                        print("\n\nThere are no habits to delete. You can create a new habit using the 'add' command\n\n\n")
                         triggerLoadScreen()
                     }
             case "home":
@@ -182,7 +182,7 @@ struct HabitTracker {
             case "add":
                 var newHabitName:String = ""
                 var newWeeklyGoal:Int = 1
-                print("\n\nEnter name for this habit \n")
+                print("\n\nGive your habit a name \n")
                 while let nameInput = readLine(strippingNewline: true) {
                     if !nameInput.isEmpty { //check if habit name already exists
                             if !viewModel.canAddHabit(nameInput)
@@ -196,10 +196,10 @@ struct HabitTracker {
                         }
                     }
                     else {
-                        print("Make sure you enter a name \n")
+                        print("Make sure you enter a name for your habit\n")
                     }
                 }
-                print("\nEnter weekly goal for this habit [Should be a whole number] Ex: 4 \n")
+                print("\nEnter weekly goal for this habit [Should be a whole number] Ex: 4\n")
                 while let goalInput = readLine(strippingNewline: true) {
                     
                     if let rawWeeklyGoal = Int(goalInput) {
@@ -213,7 +213,7 @@ struct HabitTracker {
                         }
                     }
                     else {
-                        print("\nMake sure you enter a goal that is a number \n")
+                        print("\nMake sure you enter a goal that is a whole number \n")
                     }
                 }
                 
