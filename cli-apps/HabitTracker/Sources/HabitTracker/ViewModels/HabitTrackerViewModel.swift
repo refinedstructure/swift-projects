@@ -37,9 +37,14 @@ struct HabitTrackerViewModel  {
     }
     
     
-    mutating func logHabit(at index: Int) {
-        habits[index].logCompletion(on: Date())
+    mutating func logHabit(at index: Int) -> LogStatus {
+        //log habit
+        let habitLogStat = habits[index].logCompletion(on: Date())
+        //save to disk
         saveHabits(habits)
+        return habitLogStat
+        
+       
     }
     
 }

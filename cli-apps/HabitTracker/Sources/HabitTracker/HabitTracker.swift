@@ -264,8 +264,17 @@ struct HabitTracker {
                     
                     """)
                 if let chosenHabitIndex = habitSelector(){
-                    viewModel.logHabit(at: chosenHabitIndex)
-                    print("\nYour habit was successfully logged!\n\n")
+                    let loggingResult: LogStatus = viewModel.logHabit(at: chosenHabitIndex)
+                    
+                    switch loggingResult {
+                    case .loggedAlreadyTodayFail: print("❌ You already logged this habit today!")
+                    case .loggedBeforeFail: print("❌ You already logged this habit before! ")
+                    case .loggedHistoricalSuccess: print("📆 ✅ Earlier day logged!")
+                    case .loggedTodaySuccess: print("💪 ✅ Logged successfully!")
+                    }
+                    
+                    
+
                     triggerContinueScreen()
                 }
                 else {

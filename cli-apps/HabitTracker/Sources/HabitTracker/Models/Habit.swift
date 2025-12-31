@@ -1,11 +1,20 @@
 import Foundation
+
+enum LogStatus{
+    case loggedBeforeFail
+    case loggedAlreadyTodayFail
+    case loggedTodaySuccess
+    case loggedHistoricalSuccess
+}
+
+
 struct Habit:Codable {
     var habitName:String
     var weeklyGoal: Int
     var logs:[Date] = []
     var calendar:Calendar{ Calendar.current }
     var today: Date { Date() }
-    
+
     //check if user has logged today.
     var hasLoggedToday: Bool {
         for log in logs {
@@ -19,7 +28,7 @@ struct Habit:Codable {
     var lastCompletionDate:Date? {
         return logs.max()
     }
-   
+
     
     init(habitName: String, weeklyGoal: Int, logs: [Date] = []) {
         self.habitName = habitName
@@ -34,22 +43,31 @@ struct Habit:Codable {
         self.logs = logs
     }
     
-    mutating func logCompletion(on date: Date) {
+
+    
+    
+    mutating func logCompletion(on date: Date) -> LogStatus {
+        
         if logs.contains(where: { calendar.isDate($0, inSameDayAs: date) }) {
             if calendar.isDate(date, inSameDayAs: today) {
-                print("You already logged this today! Take a break! \n")
+                return .loggedAlreadyTodayFail
+//                print("You already logged this today! Take a break! \n")
             }
             else {
-                print("You've already logged your habit for this day before!\n")
+                return .loggedBeforeFail
+//                print("You've already logged your habit for this day before!\n")
             }
         }
         else {
             logs.append(date)
             if calendar.isDate(date, inSameDayAs: today) {
-                print("Congrats on completing your habit for today! Keep going!\n")
+//                print("Congrats on completing your habit for today! Keep going!\n")
+                return .loggedTodaySuccess
             }
             else {
-                print("Keep the streak going! I've added this date to your log\n")
+//                print("Keep the streak going! I've added this date to your log\n")
+                return .loggedHistoricalSuccess
+
             }
         }
     }
