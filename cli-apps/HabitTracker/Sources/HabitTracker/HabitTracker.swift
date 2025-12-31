@@ -59,12 +59,12 @@ struct HabitTracker {
             Note: All habits are saved locally at ~/Documents/data/habits.json
             
             Available commands:
-              add        - Create a new habit        
-              list       - Show all habits           
-              log        - Log today's completion    
-              stats      - View streaks & progress   
-              delete     - Delete habits   
-              quit       - Exit the app              
+              ➡️ add        - Create a new habit        
+              ➡️ list       - Show all habits           
+              ➡️ log        - Log today's completion    
+              ➡️ stats      - View streaks & progress   
+              ➡️ delete     - Delete habits   
+              ➡️ quit       - Exit the app               
             
             Type a command and press Enter.
             ------------------------------------
