@@ -1,6 +1,21 @@
 import Foundation
 
 let APP_VERSION = "1.1.1"
+
+
+enum UserIntent:String {
+    case add = "add"
+    case delete = "delete"
+    case list = "list"
+    case log = "log"
+    case stats = "stats"
+    case quit = "quit"
+    case home = "home"
+}
+
+
+
+
 @main
 struct HabitTracker {
     static func main() {
@@ -151,13 +166,12 @@ struct HabitTracker {
         //INITIAL LOAD
         
         triggerLoadScreen()
-        
-        
-        
         // MAIN menu
         while let input = readLine(strippingNewline: true) {
-            switch input {
-            case "delete":
+            let command = UserIntent(rawValue: input)
+            switch command {
+            
+            case .delete:
                     if let selectedConfigHabit = habitSelector() {
                         let confirmMsg  = "\n\nAre you sure you want to delete \(viewModel.habits[selectedConfigHabit].habitName)?"
                         let confirmation = confirmDialog(confirmationMsg: confirmMsg)
@@ -177,9 +191,9 @@ struct HabitTracker {
                         print("\n\nThere are no habits to delete. You can create a new habit using the 'add' command\n\n\n")
                         triggerLoadScreen()
                     }
-            case "home":
+            case .home:
                 triggerLoadScreen()
-            case "add":
+            case .add:
                 var newHabitName:String = ""
                 var newWeeklyGoal:Int = 1
                 print("\n\nGive your habit a name \n")
@@ -233,7 +247,7 @@ struct HabitTracker {
 
                 triggerContinueScreen()
                 
-            case "list":
+            case .list:
                 print("""
                     
                                 ====================================
@@ -252,7 +266,7 @@ struct HabitTracker {
                 }
                 triggerContinueScreen()
                 
-            case "log":
+            case .log:
                 print("""
                     
                                 ====================================
@@ -282,7 +296,7 @@ struct HabitTracker {
                     triggerContinueScreen()
                 }
                 
-            case "stats":
+            case .stats:
            
 
                         if  let chosenHabitIndex = habitSelector() {
@@ -319,7 +333,7 @@ struct HabitTracker {
                     print("No habits to display. Type \"add\" to add a new habit. \n \n")
                     triggerContinueScreen()
                 }
-            case "quit":
+            case .quit:
                 print("Goodbye!")
                 exit(0)
             default:
